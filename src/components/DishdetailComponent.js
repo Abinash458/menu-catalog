@@ -63,9 +63,11 @@ export default class Dishdetail extends Component {
         const dishItem = this.renderDish(dish)
         const commentItem = this.renderComments(dish.comments)
         return (
-            <div className='row'>
-                {dishItem}
-                {commentItem}
+            <div className="container">
+                <div className='row'>
+                    {dishItem}
+                    {commentItem}
+                </div>
             </div>
         )
     }
