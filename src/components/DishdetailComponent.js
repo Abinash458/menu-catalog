@@ -1,6 +1,7 @@
 import React from 'react'
 import { Card, CardImg, CardText, CardBody, CardTitle, Breadcrumb, BreadcrumbItem } from 'reactstrap';
 import { Link } from 'react-router-dom';
+import { Loading } from './LoadingComponent';
 
 import CommentForm from './CommentFormComponent';
 
@@ -57,9 +58,25 @@ import CommentForm from './CommentFormComponent';
     }
 
     const Dishdetail = (props) => {
-        if (props.dish == null) {
-            return (<div>Nothing</div>)
-        } else {
+        if (props.isLoading) {
+            return(
+                <div className="container">
+                    <div className='row'>
+                        <Loading />
+                    </div>
+                </div>
+            );
+        }
+        else if (props.errMess) {
+            return(
+                <div className="container">
+                    <div className='row'>
+                        <h4> {props.errMess} </h4>
+                    </div>
+                </div>
+            );
+        }
+        else if (props.dish != null) {
             return (
                 <div className="container">
                     <div className="row">
@@ -79,7 +96,11 @@ import CommentForm from './CommentFormComponent';
                             dishId={props.dish.id} />
                     </div>
                 </div>
-            )
+            );
+        } else {
+            return (
+                <div></div>
+            );
         }
     }
 
