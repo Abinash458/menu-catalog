@@ -2,8 +2,9 @@ import React from 'react'
 import { Card, CardImg, CardText, CardBody, CardTitle, Breadcrumb, BreadcrumbItem } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { Loading } from './LoadingComponent';
-
 import CommentForm from './CommentFormComponent';
+import { baseUrl } from '../shared/baseUrl';
+
 
 
     function RenderComments({comments, addComment, dishId}) {
@@ -42,7 +43,7 @@ import CommentForm from './CommentFormComponent';
             return(
                 <div className='col-12 col-md-5 m-1'>
                     <Card>
-                        <CardImg width="100%" src={dish.image} alt={dish.name} />
+                        <CardImg width="100%" src={baseUrl + dish.image} alt={dish.name} />
                         <CardBody>
                             <CardTitle>{dish.name}</CardTitle>
                             <CardText>{dish.description}</CardText>
