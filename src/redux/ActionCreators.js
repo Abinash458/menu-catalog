@@ -299,6 +299,52 @@ export const logoutUser = () => (dispatch) => {
     dispatch(receiveLogout())
 }
 
+export const requestSignup = () => {
+    return {
+        type: ActionTypes.SIGNUP_REQUEST
+    }
+}
+
+export const receiveSignup = () => {
+    return {
+        type: ActionTypes.SIGNUP_SUCCESS
+    }
+}
+// // Sign Up user
+export const signupUser = (username, password, firstname, lastname) => (dispatch) => {
+
+    const newUser = {
+        username: username,
+        password: password,
+        firstname: firstname,
+        lastname: lastname
+    }
+
+    return fetch(baseUrl + 'users/signup', {
+        method: "POST",
+        body: JSON.stringify(newUser),
+        headers: {
+          "Content-Type": "application/json"
+        },
+    })
+    .then(response => {
+        if (response.ok) {
+          return response;
+        } else {
+          var error = new Error('Error ' + response.status + ': ' + response.statusText);
+          error.response = response;
+          throw error;
+        }
+      },
+      error => {
+            throw error;
+      })
+      .then(response => response.json())
+      .then(response => dispatch(requestSignup(response)))
+      .catch(error => { console.log('Post comments ', error.message);
+          alert('Your comment could not be posted\nError: '+ error.message); })
+};
+
 export const postFavorite = (dishId) => (dispatch) => {
 
     const bearer = 'Bearer ' + localStorage.getItem('token');
