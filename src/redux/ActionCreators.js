@@ -189,12 +189,15 @@ export const addLeaders = (leaders) => ({
 });
 
 export const postFeedback = (feedback) => (dispatch) => {
+
+    const bearer = 'Bearer ' + localStorage.getItem('token');
         
-    return fetch(baseUrl + 'feedback', {
+    return fetch(baseUrl + 'feedbacks', {
         method: "POST",
         body: JSON.stringify(feedback),
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
+          'Authorization': bearer
         },
         credentials: "same-origin"
     })
@@ -208,10 +211,10 @@ export const postFeedback = (feedback) => (dispatch) => {
         }
       },
       error => {
-            throw error;
+        throw error;
       })
     .then(response => response.json())
-    .then(response => { console.log('Feedback', response); alert('Thank you for your feedback!\n'+JSON.stringify(response)); })
+    .then(response => { console.log('Feedback', response); alert('Thank you for your feedback!\n') })
     .catch(error =>  { console.log('Feedback', error.message); alert('Your feedback could not be posted\nError: '+error.message); });
 };
 
@@ -299,17 +302,17 @@ export const logoutUser = () => (dispatch) => {
     dispatch(receiveLogout())
 }
 
-export const requestSignup = () => {
-    return {
-        type: ActionTypes.SIGNUP_REQUEST
-    }
-}
+// export const requestSignup = () => {
+//     return {
+//         type: ActionTypes.SIGNUP_REQUEST
+//     }
+// }
 
-export const receiveSignup = () => {
-    return {
-        type: ActionTypes.SIGNUP_SUCCESS
-    }
-}
+// export const receiveSignup = () => {
+//     return {
+//         type: ActionTypes.SIGNUP_SUCCESS
+//     }
+// }
 // // Sign Up user
 export const signupUser = (username, password, firstname, lastname) => (dispatch) => {
 
@@ -340,9 +343,8 @@ export const signupUser = (username, password, firstname, lastname) => (dispatch
             throw error;
       })
       .then(response => response.json())
-      .then(response => dispatch(requestSignup(response)))
-      .catch(error => { console.log('Post comments ', error.message);
-          alert('Your comment could not be posted\nError: '+ error.message); })
+      .then(response => { console.log('New User', response); alert('Thank you for registering!'+JSON.stringify(response)); })
+      .catch(error => { console.log('New User', error.message); alert('Your registration process is not successful\nError: '+ error.message); })
 };
 
 export const postFavorite = (dishId) => (dispatch) => {
