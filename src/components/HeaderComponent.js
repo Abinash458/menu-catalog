@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { Navbar, NavbarBrand, Nav, NavbarToggler, Collapse, NavItem, Jumbotron,
     Button, Modal, ModalHeader, ModalBody,
-    Form, FormGroup, Input, Label } from 'reactstrap';
+    Form, FormGroup, Row, Col, Input, Label } from 'reactstrap';
 import { NavLink } from 'react-router-dom';
+import { LocalForm, Control } from 'react-redux-form';
 
 class Header extends Component {
 
@@ -49,10 +50,11 @@ class Header extends Component {
         this.props.logoutUser();
     }
 
-    handleSignUp(event) {
+    handleSignUp(values) {
         this.toggleSignUpModal();
-        this.props.signupUser({ username: this.username.value, password: this.password.value, firstname: this.firstname.value, lastname: this.lastname.value });
-        event.preventDefault();
+        // this.props.signupUser({ username: this.username.value, password: this.password.value, firstname: this.firstname.value, lastname: this.lastname.value });
+        this.props.signupUser(values);
+        // event.preventDefault();
     }
 
     render() {
@@ -207,29 +209,53 @@ class Header extends Component {
                 <Modal isOpen={this.state.isSignUpModalOpen} toggle={this.toggleSignUpModal}>
                     <ModalHeader toggle={this.toggleSignUpModal}>Login</ModalHeader>
                     <ModalBody>
-                        <Form onSubmit={this.handleSignUp}>
-                            <FormGroup>
+                        <LocalForm onSubmit={(values) => this.handleSignUp(values)}>
+                            <Row className="form-group">
+                                <Col>
                                 <Label htmlFor="username">Username</Label>
-                                <Input type="text" id="username" name="username"
-                                    innerRef={(input) => this.username = input} />
-                            </FormGroup>
-                            <FormGroup>
+                                {/* <Input type="text" id="username" name="username"
+                                    innerRef={(input) => this.username = input} /> */}
+                                    <Control.text model='.username' id='username' name='username'
+                                        placeholder="Username"
+                                        className="form-control"
+                                    />
+                                </Col>
+                            </Row>
+                            <Row className="form-group">
+                                <Col>
                                 <Label htmlFor="password">Password</Label>
-                                <Input type="password" id="password" name="password"
-                                    innerRef={(input) => this.password = input}  />
-                            </FormGroup>
-                            <FormGroup>
+                                {/* <Input type="password" id="password" name="password"
+                                    innerRef={(input) => this.password = input}  /> */}
+                                    <Control.password model='.password' id='password' name='password'
+                                        placeholder="Psername"
+                                        className="form-control"
+                                    />
+                                </Col>
+                            </Row>
+                            <Row className="form-group">
+                                <Col>
                                 <Label htmlFor="firstname">First Name</Label>
-                                <Input type="text" id="firstname" name="firstname"
-                                    innerRef={(input) => this.firstname = input}  />
-                            </FormGroup>
-                            <FormGroup>
+                                {/* <Input type="text" id="firstname" name="firstname"
+                                    innerRef={(input) => this.firstname = input}  /> */}
+                                    <Control.text model='.firstname' id='firstname' name='firstname'
+                                        placeholder="First Name"
+                                        className="form-control"
+                                    />
+                                </Col>
+                            </Row>
+                            <Row className="form-group">
+                                <Col>
                                 <Label htmlFor="lastname">Last Name</Label>
-                                <Input type="text" id="lastname" name="lastname"
-                                    innerRef={(input) => this.lastname = input}  />
-                            </FormGroup>
+                                {/* <Input type="text" id="lastname" name="lastname"
+                                    innerRef={(input) => this.lastname = input}  /> */}
+                                    <Control.text model='.lastname' id='lastname' name='lastname'
+                                        placeholder="Last Name"
+                                        className="form-control"
+                                    />
+                                </Col>
+                            </Row>
                             <Button type="submit" value="submit" color="primary">Register</Button>
-                        </Form>
+                        </LocalForm>
                     </ModalBody>
                 </Modal>
             </React.Fragment>

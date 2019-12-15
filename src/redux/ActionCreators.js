@@ -314,14 +314,7 @@ export const logoutUser = () => (dispatch) => {
 //     }
 // }
 // // Sign Up user
-export const signupUser = (username, password, firstname, lastname) => (dispatch) => {
-
-    const newUser = {
-        username: username,
-        password: password,
-        firstname: firstname,
-        lastname: lastname
-    }
+export const signupUser = (newUser) => (dispatch) => {
 
     return fetch(baseUrl + 'users/signup', {
         method: "POST",
